@@ -6,7 +6,6 @@ Q2: Given a string, reverse it using STACK. For example “DataStructure” shou
 #include <stdio.h>
 #include <string.h>
 #define MAX 100  // max string length
-
 // stack struct for characters
 typedef struct {
     char items[MAX];  // stack elements
