@@ -21,7 +21,6 @@ stack init() {
     S.top = -1;
     return S;
 }
-
 // Check empty
 int isEmpty(stack S) {
     return (S.top == -1);
