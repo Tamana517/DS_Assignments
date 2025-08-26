@@ -1,4 +1,5 @@
 // Q3: Check if an expression has balanced parentheses
+
 #include <stdio.h>
 #include <string.h>
 #define MAX 100  // max expression length
