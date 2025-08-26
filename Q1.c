@@ -5,80 +5,108 @@ Q1: Develop a menu driven program demonstrating the following operations on a St
 
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 5   // max stack size
+#define MAX 10 // max stack size
 
-int stack[MAX];
-int top = -1;
+typedef struct {
+    int items[MAX]; // stack elements
+    int top;        // index of top
+} Stack;
+
+// initialize stack
+Stack init() {
+    Stack s;
+    s.top = -1;
+    return s;
+}
 
 // check empty
-int isEmpty() { return top == -1; }
+int isEmpty(Stack s) {
+    return s.top == -1;
+}
 
 // check full
-int isFull() { return top == MAX - 1; }
+int isFull(Stack s) {
+    return s.top == MAX - 1;
+}
 
-// insert
-void push(int x) {
-    if (isFull())
+// push element
+Stack push(Stack s, int x) {
+    if (isFull(s))
         printf("Stack Overflow!\n");
-    else {
-        stack[++top] = x;
-        printf("%d pushed\n", x);
-        display(); // show after push
-    }
-}
-
-// remove
-void pop() {
-    if (isEmpty())
-        printf("Stack Underflow!\n");
-    else {
-        printf("%d popped\n", stack[top--]);
-        display(); // show after pop
-    }
-}
-
-// show top
-void peek() {
-    if (isEmpty())
-        printf("Stack is Empty!\n");
     else
-        printf("Top element = %d\n", stack[top]);
+        s.items[++s.top] = x;
+    return s;
 }
 
-// print stack
-void display() {
-    if (isEmpty())
+// pop element
+Stack pop(Stack s) {
+    if (isEmpty(s))
+        printf("Stack Underflow!\n");
+    else
+        --s.top;
+    return s;
+}
+
+// view top element
+int peek(Stack s) {
+    if (isEmpty(s)) {
+        printf("Stack is Empty!\n");
+        return -1;
+    }
+    return s.items[s.top];
+}
+
+// display stack
+void display(Stack s) {
+    if (isEmpty(s))
         printf("Stack is Empty!\n");
     else {
         printf("Stack: ");
-        for (int i = top; i >= 0; i--)
-            printf("%d ", stack[i]);
+        for (int i = s.top; i >= 0; i--)
+            printf("%d ", s.items[i]);
         printf("\n");
     }
 }
 
 // main menu
 int main() {
+    Stack s = init(); // create stack
     int choice, value;
+
     while (1) {
-        printf("\n--- Stack Menu ---\n");
+        printf("\n--- STACK MENU ---\n");
         printf("1. Push\n2. Pop\n3. isEmpty\n4. isFull\n5. Display\n6. Peek\n7. Exit\n");
+        printf("--------------------------------------------\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
 
         switch (choice) {
-        case 1: 
+        case 1: // push
             printf("Enter value: ");
             scanf("%d", &value);
-            push(value);
+            s = push(s, value);
+            display(s);
             break;
-        case 2: pop(); break;
-        case 3: printf(isEmpty() ? "Yes, Empty\n" : "Not Empty\n"); break;
-        case 4: printf(isFull() ? "Yes, Full\n" : "Not Full\n"); break;
-        case 5: display(); break;
-        case 6: peek(); break;
-        case 7: exit(0);
-        default: printf("Invalid choice!\n");
+        case 2: // pop
+            s = pop(s);
+            display(s);
+            break;
+        case 3: // check empty
+            printf(isEmpty(s) ? "Yes, Empty\n" : "Not Empty\n");
+            break;
+        case 4: // check full
+            printf(isFull(s) ? "Yes, Full\n" : "Not Full\n");
+            break;
+        case 5: // display stack
+            display(s);
+            break;
+        case 6: // peek top
+            printf("Top element = %d\n", peek(s));
+            break;
+        case 7: // exit
+            exit(0);
+        default:
+            printf("Invalid choice!\n");
         }
     }
 }
