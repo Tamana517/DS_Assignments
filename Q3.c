@@ -1,55 +1,86 @@
-// Q3: Write a program that checks if an expression has balanced parentheses. 
-
+// Q3: Check if an expression has balanced parentheses
 #include <stdio.h>
 #include <string.h>
-#define MAX 100
+#define MAX 100  // max expression length
 
-char stack[MAX];
-int top;
+// stack struct for characters
+typedef struct {
+    char items[MAX]; // stack elements
+    int top;         // index of top
+} Stack;
 
-// Push to stack
-void push(char c) {
-    if (top < MAX - 1) stack[++top] = c;
+// initialize stack
+Stack init() {
+    Stack s;
+    s.top = -1;
+    return s;
 }
 
-// Pop from stack
-char pop() {
-    if (top >= 0) return stack[top--];
-    return '\0';
+// check empty
+int isEmpty(Stack s) {
+    return s.top == -1;
 }
 
-// Check if pair matches
+// check full
+int isFull(Stack s) {
+    return s.top == MAX - 1;
+}
+
+// push character
+Stack push(Stack s, char c) {
+    if (isFull(s))
+        printf("Stack Overflow!\n");
+    else
+        s.items[++s.top] = c;
+    return s;
+}
+
+// pop character
+Stack pop(Stack s, char *ch) {
+    if (isEmpty(s))
+        *ch = '\0';
+    else {
+        *ch = s.items[s.top];
+        s.top--;
+    }
+    return s;
+}
+
+// check if opening & closing brackets match
 int match(char open, char close) {
     return (open == '(' && close == ')') ||
            (open == '{' && close == '}') ||
            (open == '[' && close == ']');
 }
 
-// Check balance
+// check balance of expression
 int isBalanced(char exp[]) {
-    top = -1;  // reset stack before each check
+    Stack s = init();
+    char ch;
+
     for (int i = 0; exp[i]; i++) {
         if (exp[i] == '(' || exp[i] == '{' || exp[i] == '[')
-            push(exp[i]);
+            s = push(s, exp[i]);          // push opening bracket
         else if (exp[i] == ')' || exp[i] == '}' || exp[i] == ']') {
-            char open = pop();
-            if (!match(open, exp[i]))
+            s = pop(s, &ch);              // pop last opening
+            if (!match(ch, exp[i]))
                 return 0; // mismatch
         }
     }
-    return (top == -1); // balanced if stack empty
+    return isEmpty(s); // balanced if stack empty
 }
 
+// main
 int main() {
     char exp[MAX];
-
+    
     printf("Enter expression: ");
-    scanf(" %[^\n]", exp);  // read input with spaces
+    scanf(" %[^\n]", exp); // read line with spaces
 
     if (isBalanced(exp))
-        printf("Balanced\n");
+        printf("Expression is Balanced\n");
     else
-        printf("Not Balanced\n");
+        printf("Expression is Not Balanced\n");
 
     return 0;
 }
