@@ -10,15 +10,30 @@ element has an index smaller than i.
 using namespace std;
 
 void nearestSmallerToLeft(int arr[], int n) {
-    stack<int> s;
+    stack<int> s;           
+    int result[n];          
+
     for (int i = 0; i < n; i++) {
-        while (!s.empty() && s.top() >= arr[i]) // pop bigger elements
+        // Remove all elements >= current
+        while (!s.empty() && s.top() >= arr[i]) {
             s.pop();
+        }
 
-        if (s.empty()) cout << -1 << " ";          // no smaller element
-        else cout << s.top() << " ";              // nearest smaller element
+        // If stack empty -> no smaller element
+        if (s.empty()) {
+            result[i] = -1;
+        } else {
+            result[i] = s.top();
+        }
 
-        s.push(arr[i]); // push current element
+        // Push current element
+        s.push(arr[i]);
+    }
+
+    // Print results
+    cout << "Nearest smaller elements: ";
+    for (int i = 0; i < n; i++) {
+        cout << result[i] << " ";
     }
     cout << endl;
 }
@@ -28,11 +43,12 @@ int main() {
     cout << "Enter size of array: ";
     cin >> n;
 
-    int arr[n]; // input array
-    cout << "Enter elements:\n";
-    for (int i = 0; i < n; i++) cin >> arr[i];
+    int arr[n];
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
 
-    cout << "Nearest smaller elements:\n";
     nearestSmallerToLeft(arr, n);
 
     return 0;
