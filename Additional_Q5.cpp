@@ -7,11 +7,11 @@ You have to tell if it possible to move all the elements of array A to array B u
 operations such that finally the array B is sorted in ascending order.
 */
 
-//
+// Time Complexity: O(nlog(n)), Space Complexity: O(n)
 
 #include <iostream>
 #include <stack>
-#include <algorithm> // for sort()
+#include <algorithm>
 using namespace std;
 
 // Function to check if array can be sorted using a stack
