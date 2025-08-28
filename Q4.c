@@ -1,5 +1,4 @@
 // Q4: Convert Infix expression to Postfix expression
-
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
