@@ -1,7 +1,5 @@
 // Q5: Write a program for the evaluation of a Postfix expression.
 
-// Q5: Program to evaluate a Postfix expression (supports multi-digit operands)
-
 #include <stdio.h>
 #include <stdlib.h>   // for atoi()
 #include <string.h>   // for strtok()
