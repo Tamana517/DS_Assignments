@@ -12,6 +12,7 @@ typedef struct {
     int arr[MAX];
     int top;
 } stack;
+
 // Initialize stack
 stack init() {
     stack S;
