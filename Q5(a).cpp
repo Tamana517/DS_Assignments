@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-#define MAX 100
+#define MAX 10
 
 class Queue {
 private:
@@ -46,9 +46,23 @@ public:
         return arr[front];
     }
 
+    // Reset queue
     void reset() {
         front = 0;
         rear = -1;
+    }
+
+    // Display elements in queue order
+    void display() {
+        if (isEmpty()) {
+            cout << "Stack is empty!" << endl;
+            return;
+        }
+        cout << "Stack elements (top to bottom): ";
+        for (int i = front; i <= rear; i++) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
     }
 };
 
@@ -60,6 +74,11 @@ private:
 public:
     // Push operation
     void push(int x) {
+        if (isFull()) {
+            cout << "Stack Overflow!" << endl;
+            return;
+        }
+
         // Step 1: Enqueue new element into q2
         q2.enqueue(x);
 
@@ -91,9 +110,20 @@ public:
         }
         return q1.getFront();
     }
-
+    
+    // Check if stack is empty
     bool isEmpty() {
         return q1.isEmpty();
+    }
+    
+    // Check if stack is full
+    bool isFull() {
+        return q1.isFull();
+    }
+
+    // Display stack contents (top -> bottom)
+    void display() {
+        q1.display();
     }
 };
 
@@ -109,7 +139,10 @@ int main() {
         cout << "1. Push\n";
         cout << "2. Pop\n";
         cout << "3. Peek\n";
-        cout << "4. Exit\n";
+        cout << "4. Check if Empty\n";
+        cout << "5. Check if Full\n";
+        cout << "6. Display Stack\n";
+        cout << "7. Exit\n";
         cout << "Enter choice: ";
         cin >> choice;
 
@@ -134,13 +167,31 @@ int main() {
                 break;
 
             case 4:
+                if (s.isEmpty())
+                    cout << "Stack is empty.\n";
+                else
+                    cout << "Stack is not empty.\n";
+                break;
+
+            case 5:
+                if (s.isFull())
+                    cout << "Stack is full.\n";
+                else
+                    cout << "Stack is not full.\n";
+                break;
+
+            case 6:
+                s.display();
+                break;
+
+            case 7:
                 cout << "Exiting program...\n";
                 break;
 
             default:
                 cout << "Invalid choice! Try again.\n";
         }
-    } while (choice != 4);
+    } while (choice != 7);
 
     return 0;
 }
