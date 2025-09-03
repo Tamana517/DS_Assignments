@@ -117,6 +117,10 @@ public:
         return q.isFull();
     }
 
+    int size() {
+        return q.size();
+    }
+
     void display() {
         q.display();
     }
@@ -135,7 +139,8 @@ int main() {
         cout << "4. Check if Empty\n";
         cout << "5. Check if Full\n";
         cout << "6. Display Stack\n";
-        cout << "7. Exit\n";
+        cout << "7. Size of Stack\n";
+        cout << "8. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -167,12 +172,15 @@ int main() {
             st.display();
             break;
         case 7:
+            cout << "Current size of stack: " << st.size() << endl;
+            break;
+        case 8:
             cout << "Exiting program." << endl;
             break;
         default:
             cout << "Invalid choice! Try again." << endl;
         }
-    } while (choice != 7);
+    } while (choice != 8);
 
     return 0;
 }
