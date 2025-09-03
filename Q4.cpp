@@ -71,7 +71,7 @@ void firstNonRepeating(string str) {
         if (q.isEmpty())
             cout << -1 << " ";
         else
-            cout << q.getFront() << " ";
+            cout << q.peek() << " ";
     }
     cout << endl;
 }
