@@ -86,3 +86,57 @@ public:
         }
     }
 };
+
+int main() {
+    CircularQueue cq;
+    int choice, value;
+
+    do {
+        cout << "\n--- Circular Queue Menu ---" << endl;
+        cout << "1. Enqueue" << endl;
+        cout << "2. Dequeue" << endl;
+        cout << "3. Peek" << endl;
+        cout << "4. Display" << endl;
+        cout << "5. Check if Empty" << endl;
+        cout << "6. Check if Full" << endl;
+        cout << "0. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter value to enqueue: ";
+                cin >> value;
+                cq.enqueue(value);
+                break;
+            case 2:
+                cq.dequeue();
+                break;
+            case 3:
+                cq.peek();
+                break;
+            case 4:
+                cq.display();
+                break;
+            case 5:
+                if (cq.isEmpty())
+                    cout << "Queue is empty." << endl;
+                else
+                    cout << "Queue is not empty." << endl;
+                break;
+            case 6:
+                if (cq.isFull())
+                    cout << "Queue is full." << endl;
+                else
+                    cout << "Queue is not full." << endl;
+                break;
+            case 0:
+                cout << "Exiting program..." << endl;
+                break;
+            default:
+                cout << "Invalid choice! Try again." << endl;
+        }
+    } while (choice != 0);
+
+    return 0;
+}
