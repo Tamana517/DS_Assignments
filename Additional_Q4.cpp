@@ -12,7 +12,8 @@ Input: students = [1,1,0,0], sandwiches = [0,1,0,1]
 Output: 0
 */
 
-// Time Complexity: O(n)
+// Time Complexity: Best-case O(n), Worst-case O(n^2)
+// Space Complexity: O(n)
 
 #include <iostream>
 #include <queue>
