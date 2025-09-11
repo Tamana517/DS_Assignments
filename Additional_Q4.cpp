@@ -16,59 +16,78 @@ Output: 0
 
 #include <iostream>
 #include <queue>
+#include <stack>
 using namespace std;
 
-int countStudentsUnableToEat(queue<int> students, queue<int> sandwiches) {
-    int count[2] = {0}; // count[0] for circular (0), count[1] for square (1)
+int countStudentsUnableToEat(queue<int>& students, stack<int>& sandwiches) {
+    // Count how many students prefer each type
+    int count[2] = {0}; 
+    queue<int> tempQueue = students;
 
     // Count students' preferences
-    while (!students.empty()) {
-        count[students.front()]++;
-        students.pop();
+    while (!tempQueue.empty()) {
+        count[tempQueue.front()]++;
+        tempQueue.pop();
     }
 
-    // Serve sandwiches
+    // Process the sandwiches
     while (!sandwiches.empty()) {
-        int top = sandwiches.front();
-        if (count[top] > 0) {
-            // Serve the sandwich and reduce count
-            count[top]--;
-            sandwiches.pop();
-        } else {
-            // No student left who prefers this sandwich
+        int topSandwich = sandwiches.top();
+
+        // If no student prefers this sandwich, stop early
+        if (count[topSandwich] == 0) {
             break;
+        }
+
+        // Otherwise, serve the sandwich to the first student who prefers it
+        while (!students.empty()) {
+            int student = students.front();
+            students.pop();
+
+            if (student == topSandwich) {
+                // Student takes the sandwich
+                count[topSandwich]--;
+                sandwiches.pop();
+                break; // Move to next sandwich
+            } else {
+                // Student goes to the end of the queue
+                students.push(student);
+            }
         }
     }
 
-    // Remaining students are unable to eat
-    return count[0] + count[1];
+    // Remaining students who couldn't eat are the size of the queue
+    return students.size();
 }
 
 int main() {
+    // Input: students' preferences and sandwiches stack
     int n;
-    cout << "Enter the number of students/sandwiches: ";
+    cout << "Enter number of students: ";
     cin >> n;
 
     queue<int> students;
-    queue<int> sandwiches;
+    stack<int> sandwiches;
 
-    cout << "Enter the students' preferences (0 for circular, 1 for square):\n";
-    for (int i = 0; i < n; ++i) {
-        int s;
-        cin >> s;
-        students.push(s);
+    cout << "Enter students' preferences (0 for circular, 1 for square):\n";
+    for (int i = 0; i < n; i++) {
+        int pref;
+        cin >> pref;
+        students.push(pref);
     }
 
-    cout << "Enter the sandwiches' types in stack order (0 for circular, 1 for square):\n";
-    for (int i = 0; i < n; ++i) {
-        int s;
-        cin >> s;
-        sandwiches.push(s);
+    cout << "Enter sandwiches stack (top to bottom, 0 for circular, 1 for square):\n";
+    // Read input in reverse order for stack (since top is entered first)
+    int temp[n];
+    for (int i = 0; i < n; i++) {
+        cin >> temp[i];
+    }
+    for (int i = n - 1; i >= 0; i--) {
+        sandwiches.push(temp[i]);
     }
 
     int result = countStudentsUnableToEat(students, sandwiches);
-
-    cout << "Output: " << result << endl;
+    cout << "Number of students unable to eat: " << result << endl;
 
     return 0;
 }
