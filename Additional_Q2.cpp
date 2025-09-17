@@ -23,7 +23,7 @@ bool canSplit(string s) {
 
     // check if any char appears 2 or more times
     for (int i = 0; i < 26; i++) {
-        if (freq[i] >= 2) return true;
+        if (freq[i] >= 3) return true;
     }
 
     return false;  // not possible
