@@ -3,14 +3,15 @@
 #include <iostream>
 using namespace std;
 
-// Node structure for Doubly Linked List (DLL)
+// ====================== Node Structure for Doubly Linked List ======================
 struct Node {
     char data;
     Node* next;
     Node* prev;
 };
 
-// Function to create a new node
+// ====================== Create a New Node ======================
+// Allocates memory for a new node and initializes it
 Node* createNode(char data) {
     Node* newNode = new Node;
     newNode->data = data;
@@ -19,7 +20,8 @@ Node* createNode(char data) {
     return newNode;
 }
 
-// Function to insert node at the end
+// ====================== Insert Node at End ======================
+// Inserts a new node with the given data at the end of the DLL
 void insertEnd(Node*& head, char data) {
     Node* newNode = createNode(data);
     if (!head) {
@@ -33,18 +35,19 @@ void insertEnd(Node*& head, char data) {
     newNode->prev = temp;
 }
 
-// Function to check if DLL is palindrome
+// ====================== Check if DLL is Palindrome ======================
+// Returns true if the DLL is a palindrome, false otherwise
 bool isPalindrome(Node* head) {
     if (!head) return true; // Empty list is palindrome
 
     Node* left = head;
     Node* right = head;
     
-    // Move right to the last node
+    // Move right pointer to the last node
     while (right->next)
         right = right->next;
 
-    // Compare from both ends
+    // Compare nodes from both ends
     while (left != right && left->prev != right) {
         if (left->data != right->data)
             return false;
@@ -54,7 +57,7 @@ bool isPalindrome(Node* head) {
     return true;
 }
 
-// Function to display the DLL
+// ====================== Display Doubly Linked List ======================
 void display(Node* head) {
     while (head) {
         cout << head->data << " <-> ";
@@ -63,6 +66,7 @@ void display(Node* head) {
     cout << "NULL" << endl;
 }
 
+// ====================== Main Function ======================
 int main() {
     Node* head = nullptr;
     string str;
@@ -70,15 +74,16 @@ int main() {
     cout << "Enter a string to create DLL: ";
     cin >> str;
 
-    // Insert characters into DLL
+    // Insert each character of the string into the DLL
     for (char c : str) {
         insertEnd(head, c);
     }
 
+    // Display the DLL
     cout << "Doubly Linked List: ";
     display(head);
 
-    // Check palindrome
+    // Check if the DLL is a palindrome
     if (isPalindrome(head))
         cout << "The DLL is a palindrome." << endl;
     else
