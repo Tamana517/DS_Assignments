@@ -1,6 +1,6 @@
 /*
 Q2(i): Given a Doubly linked list containing N nodes, the task is
-to remove all the nodes from list which contains element whose parity is even. 
+to remove all the nodes from list which contain elements whose parity is even. 
 Note: Parity means no of 1 in binary form
 11 -> 1011, parity = 3
 15 -> 1111, parity = 4
