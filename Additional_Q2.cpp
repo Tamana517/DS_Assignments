@@ -94,7 +94,7 @@ vector<string> serializeBST(TreeNode* root) {
 
 int main() {
     int n;
-    cout << "Enter n = ";
+    cout << "n = ";
     cin >> n;
 
     // Validate input based on constraints
